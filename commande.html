@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commander — BoisPro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">🌳 BoisPro</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="commande.html" class="active">Commander</a>
+    </nav>
+  </header>
+
+  <section class="page-title">
+    <h1>Passer commande</h1>
+    <p>Remplissez le formulaire, puis finalisez via WhatsApp</p>
+  </section>
+
+  <section class="commande-container">
+    <form id="form-commande" class="commande-form">
+
+      <div class="form-group">
+        <label for="nom">Nom *</label>
+        <input type="text" id="nom" name="nom" required>
+      </div>
+
+      <div class="form-group">
+        <label for="prenom">Prénom *</label>
+        <input type="text" id="prenom" name="prenom" required>
+      </div>
+
+      <div class="form-group">
+        <label for="residence">Lieu de résidence *</label>
+        <input type="text" id="residence" name="residence" required>
+      </div>
+
+      <div class="form-group">
+        <label for="livraison">Lieu de livraison *</label>
+        <input type="text" id="livraison" name="livraison" required>
+      </div>
+
+      <div class="form-group">
+        <label for="produit">Produit souhaité *</label>
+        <select id="produit" name="produit" required>
+          <option value="">-- Choisir un produit --</option>
+          <option value="Bois de chauffage">Bois de chauffage</option>
+          <option value="Planches">Planches de menuiserie</option>
+          <option value="Charpente">Bois de charpente</option>
+          <option value="Bois rond">Bois rond</option>
+          <option value="Mobilier">Bois pour mobilier</option>
+          <option value="Copeaux">Copeaux & sciure</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantite">Quantité</label>
+        <input type="number" id="quantite" name="quantite" min="1" value="1">
+      </div>
+
+      <div class="form-group full-width">
+        <label for="message">Message / précisions (optionnel)</label>
+        <textarea id="message" name="message" rows="3"></textarea>
+      </div>
+
+      <div class="payment-info full-width">
+        <h3>💳 Mode de paiement</h3>
+        <p>Après validation, vous serez redirigé vers <strong>WhatsApp</strong> pour finaliser le paiement avec notre équipe.</p>
+      </div>
+
+      <button type="submit" class="btn-primary full-width">Valider et payer via WhatsApp</button>
+
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 BoisPro — Tous droits réservés</p>
+  </footer>
+
+  <script>
+    // Numéro WhatsApp (format international : 237 = Cameroun)
+    const WHATSAPP_NUMBER = "237692412018";
+
+    // Pré-remplir le produit si l'utilisateur arrive depuis le catalogue
+    const params = new URLSearchParams(window.location.search);
+    const produitParam = params.get("produit");
+    if (produitParam) {
+      const select = document.getElementById("produit");
+      for (const option of select.options) {
+        if (option.value === produitParam) {
+          select.value = produitParam;
+          break;
+        }
+      }
+    }
+
+    // Soumission du formulaire
+    document.getElementById("form-commande").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nom = document.getElementById("nom").value.trim();
+      const prenom = document.getElementById("prenom").value.trim();
+      const residence = document.getElementById("residence").value.trim();
+      const livraison = document.getElementById("livraison").value.trim();
+      const produit = document.getElementById("produit").value;
+      const quantite = document.getElementById("quantite").value;
+      const message = document.getElementById("message").value.trim();
+
+      // Message formaté pour WhatsApp
+      const texte = 
+        `🌳 *NOUVELLE COMMANDE BOISPRO*%0A%0A` +
+        `*Nom* : ${nom}%0A` +
+        `*Prénom* : ${prenom}%0A` +
+        `*Lieu de résidence* : ${residence}%0A` +
+        `*Lieu de livraison* : ${livraison}%0A` +
+        `*Produit* : ${produit}%0A` +
+        `*Quantité* : ${quantite}%0A` +
+        (message ? `*Message* : ${message}%0A` : ``) +
+        `%0A✅ Je souhaite finaliser ma commande et le paiement.`;
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${texte}`;
+      window.open(url, "_blank");
+    });
+  </script>
+
+</body>
+</html>

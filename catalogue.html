@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue — BoisPro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">🌳 BoisPro</div>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html" class="active">Catalogue</a>
+      <a href="commande.html">Commander</a>
+    </nav>
+  </header>
+
+  <!-- BANNIÈRE CATALOGUE -->
+  <section class="catalogue-hero">
+    <div class="catalogue-hero-content">
+      <span class="badge">🌲 Bois premium sélectionné</span>
+      <h1>Notre Catalogue</h1>
+      <p>Choisissez parmi notre gamme de bois de qualité, prêt à être livré chez vous.</p>
+      <div class="hero-stats">
+        <div><strong>6+</strong><span>Produits</span></div>
+        <div><strong>48h</strong><span>Livraison</span></div>
+        <div><strong>100%</strong><span>Satisfaction</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARRE DE FILTRES -->
+  <section class="filters">
+    <button class="filter-btn active" data-filter="all">Tous</button>
+    <button class="filter-btn" data-filter="chauffage">Chauffage</button>
+    <button class="filter-btn" data-filter="construction">Construction</button>
+    <button class="filter-btn" data-filter="menuiserie">Menuiserie</button>
+    <button class="filter-btn" data-filter="divers">Divers</button>
+  </section>
+
+  <!-- GRILLE PRODUITS -->
+  <section class="catalogue">
+    <div class="product-grid">
+
+      <div class="product-card" data-category="chauffage">
+        <div class="product-badge">Populaire</div>
+        <div class="product-img">🔥</div>
+        <h3>Bois de chauffage</h3>
+        <p>Stère de bois sec, idéal pour cheminée et poêle.</p>
+        <div class="product-footer">
+          <span class="price">15 000 <small>FCFA / stère</small></span>
+          <a href="commande.html?produit=Bois+de+chauffage" class="btn-order">Commander →</a>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="menuiserie">
+        <div class="product-img">🪵</div>
+        <h3>Planches de menuiserie</h3>
+        <p>Planches rabotées, prêtes à l'emploi.</p>
+        <div class="product-footer">
+          <span class="price">5 000 <small>FCFA / planche</small></span>
+          <a href="commande.html?produit=Planches" class="btn-order">Commander →</a>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="construction">
+        <div class="product-img">🏗️</div>
+        <h3>Bois de charpente</h3>
+        <p>Poutres solides pour charpente et construction.</p>
+        <div class="product-footer">
+          <span class="price">25 000 <small>FCFA / poutre</small></span>
+          <a href="commande.html?produit=Charpente" class="btn-order">Commander →</a>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="construction">
+        <div class="product-img">🌲</div>
+        <h3>Bois rond</h3>
+        <p>Bois brut pour clôture et aménagement extérieur.</p>
+        <div class="product-footer">
+          <span class="price">8 000 <small>FCFA / unité</small></span>
+          <a href="commande.html?produit=Bois+rond" class="btn-order">Commander →</a>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="menuiserie">
+        <div class="product-img">🪑</div>
+        <h3>Bois pour mobilier</h3>
+        <p>Bois noble pour vos projets de menuiserie fine.</p>
+        <div class="product-footer">
+          <span class="price">20 000 <small>FCFA / lot</small></span>
+          <a href="commande.html?produit=Mobilier" class="btn-order">Commander →</a>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="divers">
+        <div class="product-img">🧱</div>
+        <h3>Copeaux & sciure</h3>
+        <p>Sac de copeaux pour litière ou compost.</p>
+        <div class="product-footer">
+          <span class="price">3 000 <small>FCFA / sac</small></span>
+          <a href="commande.html?produit=Copeaux" class="btn-order">Commander →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 BoisPro — Tous droits réservés</p>
+  </footer>
+
+  <script>
+    // Filtres catalogue
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        productCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
